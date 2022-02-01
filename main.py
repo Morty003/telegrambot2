@@ -7,14 +7,16 @@ app = Flask(__name__)
 TOKEN = os.environ.get('TOKEN')
 bot = telebot.TeleBot(TOKEN)
 
+@bot.message_handler(commands=['start'])
+def message_start(message):
+    bot.send_message(message.chat.id, 'Hello user!')
+
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "Python Telegram Bot 30-01-2022", 200
 
-@bot.message_handlers(commands=['start'])
-def message_start(message):
-    bot.send_message(message.chat.id, 'Hello user!')
+
 
 @app.route('/')
 def main():
