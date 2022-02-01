@@ -9,7 +9,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def message_start(message):
-    bot.send_message(message.chat.id, 'Vania lox')
+    bot.send_message(message.chat.id, 'Hello dad!')
 
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
