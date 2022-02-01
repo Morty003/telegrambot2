@@ -9,7 +9,18 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def message_start(message):
-    bot.send_message(message.chat.id, 'Hello dad!')
+    bot.send_message(message.chat.id, 'Добрый день!')
+
+@bot.message_handler(commands=['shop'])
+def message_shop(message):
+    keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
+    with open('expert_center.txt') as file:
+        shop = [item.split(',') for item in file]
+
+        for title, link in shop:
+            url_button = telebot.types.InlineKeyboardButton(text = title.strip(), url = link.strip())
+            keyboard.add(url_button)
+        bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup = keyboard)
 
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
