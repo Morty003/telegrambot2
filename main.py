@@ -19,7 +19,7 @@ def message_start(message):
 @app.route('/')
 def main():
     bot.remove_webhook()
-    bot.set_webhook(url='https://kryvonistelegrambot.herokuapp.com/' + TOKEN)
+    bot.set_webhook(url='https://bot-telegram2.herokuapp.com/' + TOKEN)
     return 'Python Telegram Bot', 200
 
 if __name__ == '__main__':
