@@ -2,6 +2,7 @@ import telebot
 from flask import Flask, request
 import os
 
+from telebot.types import InlineKeyboardMarkup
 
 app = Flask(__name__)
 TOKEN = os.environ.get('TOKEN')
@@ -13,7 +14,7 @@ def message_start(message):
 
 @bot.message_handler(commands=['shop'])
 def message_shop(message):
-    keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
+    keyboard: InlineKeyboardMarkup = telebot.types.InlineKeyboardMarkup(row_width=1)
 
     with open('expert_center.txt') as file:
         expert_center = [item.split(',') for item in file]
@@ -23,6 +24,19 @@ def message_shop(message):
             keyboard.add(url_button)
 
         bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup=keyboard)
+
+@bot.message_handler(func=lambda x: x.text.lower().startswith('рюкзак'))
+def message_text(message):
+    keyboard: InlineKeyboardMarkup = telebot.types.InlineKeyboardMarkup(row_width=1)
+
+    with open('expert_center.txt') as file:
+        expert_center = [item.split(',') for item in file]
+
+        for title, link in expert_center :
+            if title == message:
+                url_button = telebot.types.InlineKeyboardButton(text=title.strip(), url=link.strip())
+                keyboard.add(url_button)
+                bot.send_message(message.chat.id, reply_markup=keyboard)
 
 @bot.message_handler(func=lambda x: x.text.lower().startswith('рюкзак'))
 def message_text(message):
