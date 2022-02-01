@@ -15,12 +15,13 @@ def message_start(message):
 def message_shop(message):
     keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
     with open('expert_center.txt') as file:
-        shop = [item.split(',') for item in file]
+        expert_center = [item.split(',') for item in file]
 
-        for title, link in shop:
+        for title, link in expert_center:
             url_button = telebot.types.InlineKeyboardButton(text = title.strip(), url = link.strip())
             keyboard.add(url_button)
-        bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup = keyboard)
+
+        bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup=keyboard)
 
 @bot.message_handler(func=lambda x: x.text.lower().startswith('Рюкзак'))
 def message_text(message):
