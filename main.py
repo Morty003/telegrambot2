@@ -22,6 +22,10 @@ def message_shop(message):
             keyboard.add(url_button)
         bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup = keyboard)
 
+@bot.message_handler(func=lambda x: x.text.lower().startswith('Рюкзак'))
+def message_text(message):
+    bot.send_message(message.chat.id, 'Рюкзак')
+
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
