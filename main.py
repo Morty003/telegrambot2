@@ -24,7 +24,7 @@ def message_shop(message):
 
         bot.send_message(message.chat.id, 'Что вас интересует?', reply_markup=keyboard)
 
-@bot.message_handler(func=lambda x: x.text.lower().startswith('Рюкзак'))
+@bot.message_handler(func=lambda x: x.text.lower().startswith('рюкзак'))
 def message_text(message):
     bot.send_message(message.chat.id, 'Рюкзак')
 
